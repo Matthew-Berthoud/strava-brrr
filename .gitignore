@@ -1,5 +1,8 @@
-# Token info
-strava_tokens.json
+# User-specific file output
+export.csv
+
+# User-specific tokens
+tokens.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

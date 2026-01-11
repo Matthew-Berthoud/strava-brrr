@@ -1,52 +1,41 @@
-# Strava Activity Exporter (2026)
-
-This script fetches all your Strava activities for the year 2026 using the `stravalib` library and exports them to a CSV file.
+# Backyard Brrr Strava Activity Exporter (2026)
 
 ## Prerequisites
 
-- **uv** (Python package manager)
-- **Strava Account**
-- **Strava API Access Token** with `activity:read_all` permissions.
+- `python`
+- `uv`
+- Strava Account with activities that you want to upload
 
 ## Setup
 
-1.  **Clone the repo:**
+1. Clone the repo:
 
-    ```zsh
-    git clone git@github.com:Matthew-Berthoud/strava-brrr.git
-    cd strava-brrr
-    ```
+   ```zsh
+   git clone git@github.com:Matthew-Berthoud/strava-brrr.git
+   cd strava-brrr
+   ```
 
-2.  **Initialize the project:**
-    If you haven't already initialized a uv project in this directory:
+2. Initialize the project dependencies:
 
-    ```zsh
-    uv init
-    ```
+   ```zsh
+   uv sync
+   ```
 
-3.  **Add dependencies:**
-    Install `stravalib` for the API and `python-dotenv` for environment variable management.
+3. Set up an application in your Strava account by following the [beginning of this tutorial](https://stravalib.readthedocs.io/en/latest/get-started/authenticate-with-strava.html#step-1-create-an-application-in-your-strava-account)
 
-    ```zsh
-    uv add stravalib python-dotenv
-    ```
+4. Get your client secret and client id for this application, and put them in an `.env` file:
 
-4.  **Configure Environment Variables:**
-    Create a file named `.env` in the root directory and add your Strava token:
+   ```sh
+   cp .env.example .env
+   # open .env and fill in fields
+   ```
 
-    ```zsh
-    cp .env.example .env
-    open .env
-    ```
+5. Run the script and follow all instructions:
 
-    ```ini
-    STRAVA_ACCESS_TOKEN=your_actual_token_string_here
-    ```
+   ```sh
+   uv run main.py
+   ```
 
-## Usage
+6. Upload `export.csv` to the Backyard Brrr [results page](https://runsignup.com/Race/RegistrationLookup/?raceId=103877&renderMode=results_mode)
 
-Run the script using `uv run`:
-
-```bash
-uv run export_activities.py
-```
+7. If you have any trouble, open an Issue or Slack message me!
