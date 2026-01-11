@@ -1,4 +1,4 @@
-# Backyard Brrr Strava Activity Exporter (2026)
+# Backyard Brrr Strava Activity Exporter
 
 ## Prerequisites
 
