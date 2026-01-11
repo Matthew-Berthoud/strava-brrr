@@ -1,5 +1,5 @@
 # Token info
-token_response.json
+strava_tokens.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
