@@ -27,12 +27,14 @@ Just follow the steps below...
    3. Create a new application in your account
       ![create strava application example](assets/strava-application.png)
 4. Get your client secret and client id for this application, and put them in an `.env` file:
-   ![get env info from strava](assets/strava-client-secret-and-id.png)
+   ![get env info from strava](assets/client-info.png)
+
    ```sh
    cp .env.example .env
    ```
 
    1. Now open `.env` and fill in fields
+
 5. Run the script and follow the instructions it prints. You'll only have to do all the Strava setup the _first_ time you use the script. Subsequent uses take mere seconds!
    ```sh
    uv run main.py
