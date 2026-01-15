@@ -1,4 +1,4 @@
-# Backyard Brrr Strava Activity Exporter (2026)
+# Backyard Brrr Strava Activity Exporter
 
 This repo helps you quickly import Strava activities into Backyard Brrr.
 First you get set up with the Strava API to export your activities, and then you can upload them directly to Backyard Brrr!
