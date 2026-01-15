@@ -44,7 +44,7 @@ def auth():
 
     while True:
         try:
-            redirect_url = input("2️⃣  Paste the redirect URL: ").strip()
+            redirect_url = input("2️⃣ Paste the redirect URL: ").strip()
             code = parse_qs(urlparse(redirect_url).query)["code"][0]
 
             tokens = client.exchange_code_for_token(
@@ -76,7 +76,7 @@ def get_data():
     start_day = "0"
     while not start_day.isnumeric() or int(start_day) < 1 or int(start_day) > 31:
         start_day = input(
-            "1️⃣ What day of Jan 2026 would you like to start from? (number 1-31) "
+            "1️⃣ What day of January would you like to start from? (number 1-31) "
         )
 
     today = date.today()
