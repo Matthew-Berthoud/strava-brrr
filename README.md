@@ -10,7 +10,7 @@ Just follow the steps below...
 - `uv`: `brew install uv`
 - Strava Account with activities that you want to upload
 
-## Exporting Activities from Strava
+## Exporting from Strava
 
 1. Clone the repo:
 
@@ -44,7 +44,7 @@ Just follow the steps below...
 
 7. If you have any trouble, open an Issue or Slack message me!
 
-## Uploading Activities to Backyard Brrr
+## Uploading to Backyard Brrr
 
 1. Go to the [results page](https://runsignup.com/Race/RegistrationLookup/?raceId=103877&renderMode=results_mode), and search for yourself. ![step 1](assets/1.png)
 2. Click Log Activities. ![step 2](assets/2.png)
