@@ -31,9 +31,8 @@ Just follow the steps below...
 
    ```sh
    cp .env.example .env
+    # now open .env and fill in fields
    ```
-
-   1. Now open `.env` and fill in fields
 
 5. Run the script and follow the instructions it prints. You'll only have to do all the Strava setup the _first_ time you use the script. Subsequent uses take mere seconds!
    ```sh
