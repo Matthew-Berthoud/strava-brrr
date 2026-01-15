@@ -21,13 +21,13 @@ Just follow the steps below...
    ```zsh
    uv sync
    ```
-3. Set up an application in your Strava account by following the beginning of [this tutorial](https://stravalib.readthedocs.io/en/latest/get-started/authenticate-with-strava.html#step-1-create-an-application-in-your-strava-account)
+3. Set up an application in your Strava account by following [Step 1 of this tutorial](https://stravalib.readthedocs.io/en/latest/get-started/authenticate-with-strava.html#step-1-create-an-application-in-your-strava-account)
 4. Get your client secret and client id for this application, and put them in an `.env` file:
    ```sh
    cp .env.example .env
    # open .env and fill in fields
    ```
-5. Run the script and follow all instructions:
+5. Run the script and follow the instructions it prints. You'll only have to do all the Strava setup the _first_ time you use the script. Subsequent uses take mere seconds!
    ```sh
    uv run main.py
    ```
