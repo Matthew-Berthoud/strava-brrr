@@ -22,9 +22,8 @@ Just follow the steps below...
    uv sync
    ```
 3. Set up an application in your Strava account:
-   1. Login to your Strava account
-   2. Go to settings > My API Application
-   3. Create a new application in your account
+   1. Go to [your Strava API settings](https://www.strava.com/settings/api) (logging in first if needed)
+   2. Create a new application in your account (the application name, logo, and website all don't matter but need to be filled in)
       ![create strava application example](assets/strava-application.png)
 4. Get your client secret and client id for this application, and put them in an `.env` file:
    ![get env info from strava](assets/client-info.png)

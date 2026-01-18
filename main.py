@@ -101,7 +101,8 @@ def auth():
         client_id=cid, redirect_uri="http://127.0.0.1:5000/authorization"
     )
 
-    print(f"1️⃣  Visit this URL:\n{auth_url}")
+    print(f"1️⃣  Visit this UL:\n{auth_url}")
+    print("  Don't worry about the 404, just copy the URL it tries to redirect you to")
 
     while True:
         try:
