@@ -96,6 +96,8 @@ def auth():
     if not cid or not secret:
         raise ValueError("Missing Strava credentials in environment variables.")
 
+    cid = int(cid)
+
     client = Client()
     auth_url = client.authorization_url(
         client_id=cid, redirect_uri="http://127.0.0.1:5000/authorization"
