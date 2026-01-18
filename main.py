@@ -6,11 +6,72 @@ from urllib.parse import parse_qs, urlparse
 from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
+from stravalib import unit_helper
 from stravalib.client import Client
 
 TOKENS_FILE = "tokens.json"
-METERS_TO_MILES = 0.000621371
-METERS_TO_FEET = 3.28084
+CSV_FILE = "export.csv"
+BRRR_CSV_HEADERS = [
+    "Activity Date",
+    "Elevation Gain",
+    "Activity Time",
+    "Activity Type",
+    "Comment",
+    "Distance in Miles",
+]
+INCOMPATIBLE = [
+    "Crossfit",
+    "Elliptical",
+    "Golf",
+    "Hike",
+    "IceSkate",
+    "InlineSkate",
+    "Kayaking",
+    "Kitesurf",
+    "RockClimbing",
+    "Sail",
+    "Skateboard",
+    "Snowshoe",
+    "Surfing",
+    "WeightTraining",
+    "Windsurf",
+    "Workout",
+    "Yoga",
+]
+BRRR_TO_STRAVA = {
+    "Run": [
+        "Run",
+        "Soccer",
+        "VirtualRun",
+    ],
+    "Walk": [
+        "StairStepper",
+        "Walk",
+    ],
+    "Ride": [
+        "EBikeRide",
+        "Handcycle",
+        "Ride",
+        "Velomobile",
+        "VirtualRide",
+        "Wheelchair",
+    ],
+    "Swim": [
+        "Swim",
+    ],
+    "Ski": [
+        "AlpineSki",
+        "BackcountrySki",
+        "NordicSki",
+        "RollerSki",
+        "Snowboard",
+    ],
+    "Paddle/Row": [
+        "Canoeing",
+        "Rowing",
+        "StandUpPaddling",
+    ],
+}
 
 
 def format_time(total_seconds):
@@ -87,63 +148,41 @@ def get_data():
     return activities
 
 
-def save_data(data):
+def coerce_activity_type(activity_type) -> str | None:
+    # skip activities that can't really be included in Backyard Brrr
+    if activity_type in INCOMPATIBLE:
+        return None
+
+    for brrr_type, strava_types in BRRR_TO_STRAVA.items():
+        if activity_type in strava_types:
+            return brrr_type
+    return None
+
+
+def save_data(activities):
     rows = []
-    count = 0
 
-    for activity in data:
-        count += 1
-
-        act_date = activity.start_date_local.strftime("%Y-%m-%d")
-        act_time = format_time(activity.moving_time)
-
-        if activity.total_elevation_gain is not None:
-            elevation_feet = float(activity.total_elevation_gain) * METERS_TO_FEET
-            elevation_str = f"{elevation_feet:.0f} ft"
-        else:
-            elevation_str = "0 ft"
-
-        act_type = str(getattr(activity, "sport_type", activity.type))[6:-1]
-        if act_type == "WeightTraining":
+    for a in activities:
+        activity_type = coerce_activity_type(a.sport_type)
+        if activity_type is None:
             continue
-        if act_type == "AlpineSki":
-            act_type = "Ski"
 
-        comment = "outside"
+        brrr_activity = {
+            "Activity Date": a.start_date_local.strftime("%Y-%m-%d"),
+            "Elevation Gain": f"{round(unit_helper.feet(a.total_elevation_gain).magnitude, 2)} ft",
+            "Activity Time": format_time(a.moving_time),
+            "Activity Type": activity_type,
+            "Comment": "outside",
+            "Distance in Miles": f"{round(unit_helper.miles(a.distance).magnitude, 2)} miles",
+        }
+        rows.append(brrr_activity)
 
-        if activity.distance is not None:
-            distance_miles = float(activity.distance) * METERS_TO_MILES
-            distance_str = f"{distance_miles:.2f}"
-        else:
-            distance_str = "0.00"
-
-        rows.append(
-            {
-                "Activity Date": act_date,
-                "Elevation Gain": elevation_str,
-                "Activity Time": act_time,
-                "Activity Type": act_type,
-                "Comment": comment,
-                "Distance in Miles": distance_str,
-            }
-        )
-
-    headers = [
-        "Activity Date",
-        "Elevation Gain",
-        "Activity Time",
-        "Activity Type",
-        "Comment",
-        "Distance in Miles",
-    ]
-
-    csv_filename = "export.csv"
-    with open(csv_filename, mode="w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=headers)
+    with open(CSV_FILE, mode="w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=BRRR_CSV_HEADERS)
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"✅ Wrote {count} activities to {csv_filename}")
+    print(f"✅ Wrote activities to {CSV_FILE}")
 
 
 def main():
