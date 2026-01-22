@@ -172,7 +172,7 @@ def save_data(activities):
 
         brrr_activity = {
             "Activity Date": a.start_date_local.strftime("%Y-%m-%d"),
-            "Elevation Gain": f"{round(unit_helper.feet(a.total_elevation_gain).magnitude, 2)} ft",
+            "Elevation Gain": f"{unit_helper.meters(a.total_elevation_gain).magnitude} meters",
             "Activity Time": format_time(a.moving_time),
             "Activity Type": activity_type,
             "Comment": "outside",
